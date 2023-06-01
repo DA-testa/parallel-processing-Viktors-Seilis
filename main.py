@@ -1,16 +1,20 @@
+# Viktors Valdis Seilis
+# 221RDB406
 # python3
-import heapq
+import heapq 
 
 def parallel_processing(a, b, data):
-    output = []
-    hep = [(0, i) for i in range(a)]
-    heapq.heapify(hep)
+    output = [] # Make a empty list
+    hep = [(0, i) for i in range(a)] # Defines the thread count and there starting time
+    heapq.heapify(hep) # Heap is converted into a priority queue
     for i in range(b):
-        t, thread = heapq.heappop(hep)
-        start = t
-        finish = t + data[i]
-        output.append((thread, start))
-        heapq.heappush(hep, (finish, thread))
+        t, thread = heapq.heappop(hep) # Make that thread with with the earliest available time is always at the top of the heap.
+        start = t 
+        finish = t + data[i] 
+        # Thread is appended to the output list, representing the assignment of the current task to a thread and its start time.
+        output.append((thread, start)) 
+        # Thread is pushed back into the heap using heappush, ensuring that the heap remains updated with the new available time for the thread after processing the current task.
+        heapq.heappush(hep, (finish, thread)) 
     return output
 
 def main():
